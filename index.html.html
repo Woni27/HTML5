@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Progress in Data & AI</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(45deg, #3498db, #8e44ad);
+            color: white;
+            overflow: hidden;
+        }
+        .container {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+        }
+        .content {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            max-width: 80%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+        .icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        #restartButton, #soundToggle {
+            background-color: #2ecc71;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        #restartButton:hover, #soundToggle:hover {
+            background-color: #27ae60;
+        }
+        #soundToggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" onclick="nextSlide()">
+        <div class="content" id="slide-content">
+            <h1>Let's see your progress in data & AI field in the past 2 weeks</h1>
+            <p>Click anywhere to start the journey!</p>
+        </div>
+    </div>
+
+    <button id="soundToggle" onclick="toggleSound()">🔇 Sound Off</button>
+
+    <audio id="backgroundMusic" loop>
+        <source src="background-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const slides = [
+            {
+                title: "Let's see your progress in data & AI field in the past 2 weeks",
+                content: "Click anywhere to start the journey!",
+                icon: "🚀"
+            },
+            {
+                title: "First Medium Article about AI",
+                content: "You've written and published your first Medium article on AI. Great start in sharing your knowledge!",
+                icon: "📝"
+            },
+            {
+                title: "5th Episode of AI Podcast",
+                content: "You've successfully launched the 5th episode of your AI podcast. Consistency is key!",
+                icon: "🎙️"
+            },
+            {
+                title: "First LinkedIn Post about AI",
+                content: "You've made your first LinkedIn post about AI. Expanding your professional network!",
+                icon: "💼"
+            },
+            {
+                title: "First AI Generated Video",
+                content: "You've created your first AI-generated video. Exploring new frontiers in content creation!",
+                icon: "🎥"
+            },
+            {
+                title: "Built First Data Pipeline",
+                content: "While learning in a Coursera data engineering course, you've built your first data pipeline. Practical skills in action!",
+                icon: "🔧"
+            },
+            {
+                title: "Congratulations on Your Progress!",
+                content: "You've made significant strides in just two weeks. Keep up the fantastic work and continue pushing the boundaries in data & AI!",
+                icon: "🎉"
+            }
+        ];
+
+        let currentSlide = -1;
+        const music = document.getElementById('backgroundMusic');
+        let isSoundOn = false;
+
+        function nextSlide() {
+            currentSlide++;
+            if (currentSlide >= slides.length) {
+                currentSlide = 0;
+            }
+            updateSlide();
+            if (currentSlide === 1 && isSoundOn) {
+                playAudio();
+            }
+        }
+
+        function updateSlide() {
+            const slide = slides[currentSlide];
+            const content = document.getElementById('slide-content');
+            content.style.opacity = 0;
+            content.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                content.innerHTML = `
+                    <div class="icon">${slide.icon}</div>
+                    <h1>${slide.title}</h1>
+                    <p>${slide.content}</p>
+                    ${currentSlide === slides.length - 1 ? '<button id="restartButton" onclick="restartPresentation()">Restart Presentation</button>' : ''}
+                `;
+                content.style.opacity = 1;
+                content.style.transform = 'translateY(0)';
+            }, 500);
+        }
+
+        function restartPresentation() {
+            currentSlide = -1;
+            nextSlide();
+        }
+
+        function toggleSound() {
+            isSoundOn = !isSoundOn;
+            const soundToggle = document.getElementById('soundToggle');
+            if (isSoundOn) {
+                soundToggle.textContent = '🔊 Sound On';
+                playAudio();
+            } else {
+                soundToggle.textContent = '🔇 Sound Off';
+                music.pause();
+            }
+        }
+
+        function playAudio() {
+            music.play().catch(e => {
+                console.log("Audio play failed:", e);
+                isSoundOn = false;
+                document.getElementById('soundToggle').textContent = '🔇 Sound Off';
+            });
+        }
+
+        // Start the presentation
+        nextSlide();
+    </script>
+</body>
+</html>
