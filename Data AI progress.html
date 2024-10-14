@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Progress in Data & AI</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(45deg, #3498db, #8e44ad);
+            color: white;
+            overflow: hidden;
+        }
+        .container {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+        }
+        .content {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            max-width: 80%;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+        .icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" onclick="nextSlide()">
+        <div class="content" id="slide-content">
+            <h1>Let's see your progress in data & AI field in the past 2 weeks</h1>
+            <p>Click anywhere to start the journey!</p>
+        </div>
+    </div>
+
+    <script>
+        const slides = [
+            {
+                title: "First Medium Article about AI",
+                content: "You've written and published your first Medium article on AI. Great start in sharing your knowledge!",
+                icon: "📝"
+            },
+            {
+                title: "5th Episode of AI Podcast",
+                content: "You've successfully launched the 5th episode of your AI podcast. Consistency is key!",
+                icon: "🎙️"
+            },
+            {
+                title: "First LinkedIn Post about AI",
+                content: "You've made your first LinkedIn post about AI. Expanding your professional network!",
+                icon: "💼"
+            },
+            {
+                title: "First AI Generated Video",
+                content: "You've created your first AI-generated video. Exploring new frontiers in content creation!",
+                icon: "🎥"
+            },
+            {
+                title: "Built First Data Pipeline",
+                content: "While learning in a Coursera data engineering course, you've built your first data pipeline. Practical skills in action!",
+                icon: "🔧"
+            },
+            {
+                title: "Congratulations on Your Progress!",
+                content: "You've made significant strides in just two weeks. Keep up the fantastic work and continue pushing the boundaries in data & AI!",
+                icon: "🎉"
+            }
+        ];
+
+        let currentSlide = -1;
+
+        function nextSlide() {
+            currentSlide++;
+            if (currentSlide >= slides.length) {
+                currentSlide = 0;
+            }
+            updateSlide();
+        }
+
+        function updateSlide() {
+            const slide = slides[currentSlide];
+            document.getElementById('slide-content').innerHTML = `
+                <div class="icon">${slide.icon}</div>
+                <h1>${slide.title}</h1>
+                <p>${slide.content}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
